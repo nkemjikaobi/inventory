@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon app.js",
 		"docker:bash": "docker-compose up",
 		"dev": "nodemon app --exec \"node -r dotenv/config\"",
 		"test": "echo \"Error: no test specified\" && exit 1"
