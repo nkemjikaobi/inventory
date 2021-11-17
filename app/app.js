@@ -1,20 +1,13 @@
-const mongoose = require('mongoose');
-const app = require('./app');
-const config = require('./config/config');
-const mongoHost = config.MONGODB_URI;
-const logger = require('turbo-logger').createStream({});
+const userRoutes = require('./route/user');
+const morgan = require('morgan');
 
-const startServer = async function () {
-	try {
-		await Promise.all([
-			mongoose.connect(config.MONGODB_URI),
-			app.listen(config.PORT),
-		]);
-		logger.log(
-			`Server has started on port: ${config.PORT}, connected to mongo at ${mongoHost}`
-		);
-	} catch (error) {
-		logger.error('Could not start the app: ', error);
-	}
-};
-startServer();
+const express = require('express');
+
+const app = express();
+
+app.use(morgan('dev'));
+app.use(express.json());
+
+app.use('/api', userRoutes);
+
+module.exports = app;
