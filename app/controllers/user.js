@@ -1,4 +1,4 @@
-const errors = require('../utils/error');
+const errors = require('../utils/errors');
 const httpStatus = require('http-status');
 
 class UserController {

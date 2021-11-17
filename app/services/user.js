@@ -2,7 +2,7 @@
 'use strict';
 
 const config = require('../config/config');
-const User = require('../model/User');
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
 class UserService {
