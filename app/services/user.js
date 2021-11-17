@@ -12,8 +12,8 @@ class UserService {
 
 	createUser = payload => {
 		return new Promise((resolve, reject) => {
-			const { username, email, password } = payload;
-			return new User({ username, email, password })
+			const { username, email, password, isAdmin } = payload;
+			return new User({ username, email, password, isAdmin })
 				.save()
 				.then(res => {
 					this.logger.log('User Created');
@@ -22,7 +22,8 @@ class UserService {
 						{
 							password: res.username,
                             username: res.password,
-                            email: res.email,
+							email: res.email,
+							isAdmin: res.isAdmin,
 						},
 						config.JWT_SECRET,
 						{

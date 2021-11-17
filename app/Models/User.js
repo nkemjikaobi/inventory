@@ -10,9 +10,12 @@ const UserSchema = new mongoose.Schema(
 		},
 		username: {
 			type: String,
-			unique: true,
 			required: true,
 			min: 3,
+		},
+		isAdmin: {
+			type: Boolean,
+			default: false,
 		},
 		hashed_password: {
 			type: String,
