@@ -20,7 +20,7 @@ class UserController {
 				if (err && err.code === 11000) {
 					return res
 						.status(httpStatus.FORBIDDEN)
-						.send(new errors.ItemAlreadyExist(err.message.toString()));
+						.send(new errors.ItemAlreadyExist('User Already Exists'));
 				}
 				return res
 					.status(httpStatus.BAD_REQUEST)

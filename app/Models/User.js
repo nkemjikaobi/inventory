@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema(
 			type: Boolean,
 			default: false,
 		},
-		hashed_password: {
+		password: {
 			type: String,
 			required: true,
 			min: 6,
@@ -30,12 +30,11 @@ const UserSchema = new mongoose.Schema(
 );
 
 // virtual
-UserSchema
-	.virtual('password')
-	.set(function (password) {
-		this._password = password;
+UserSchema.virtual('pass')
+	.set(function (pass) {
+		this._password = pass;
 		this.salt = this.makeSalt();
-		this.hashed_password = this.encryptPassword(password);
+		this.password = this.encryptPassword(pass);
 	})
 	.get(function () {
 		return this._password;
@@ -44,16 +43,13 @@ UserSchema
 // methods
 UserSchema.methods = {
 	authenticate: function (plainText) {
-		return this.encryptPassword(plainText) === this.hashed_password; // true false
+		return this.encryptPassword(plainText) === this.password; // true false
 	},
 
 	encryptPassword: function (password) {
-		if (!password) return '';
+		if (!pass) return '';
 		try {
-			return crypto
-				.createHmac('sha1', this.salt)
-				.update(password)
-				.digest('hex');
+			return crypto.createHmac('sha1', this.salt).update(pass).digest('hex');
 		} catch (err) {
 			return '';
 		}
