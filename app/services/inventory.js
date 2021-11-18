@@ -13,7 +13,7 @@ class InventoryService {
 			return new Inventory({ name, price, quantity })
 				.save()
 				.then(res => {
-                    this.logger.log('Inventory Created');
+					this.logger.log('Inventory Created');
 					return resolve(res);
 				})
 				.catch(err => {
