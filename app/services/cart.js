@@ -2,6 +2,7 @@
 
 const Cart = require('../models/Cart');
 const Inventory = require('../models/Inventory');
+const Errors = require('../utils/errors');
 
 class CartService {
 	constructor(logger) {
@@ -15,7 +16,9 @@ class CartService {
 		try {
 			let productToAdd = await Inventory.findById(product);
 			if (productToAdd.quantity < 1) {
-				return res.status(200).json({ msg: 'Item is out of stock' });
+				
+			this.logger.log("Items Out of Stock");
+			return reject(new Errors.BadRequestError("Items Out of Stock"));
 			}
 
 			//Add product to cart
@@ -37,8 +40,8 @@ class CartService {
 			);
 			res.status(200).json({ msg: cart });
 		} catch (err) {
-			console.error(err.message);
-			res.status(500).send('Server Error');
+			this.logger.log(err.message);
+			return reject(new Errors.BadRequestError(err.message));
 		}
 	};
 }

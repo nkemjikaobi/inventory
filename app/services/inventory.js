@@ -1,6 +1,7 @@
 /** @format */
 
 const Inventory = require('../models/Inventory');
+const Errors = require('../utils/errors');
 
 class InventoryService {
 	constructor(logger) {
@@ -26,61 +27,67 @@ class InventoryService {
 	editInventory = async (payload, params, res) => {
 		const { name, price, quantity } = payload;
 		const { id } = params;
+		return new Promise((resolve, reject) => {
+			//Build Inventory Object
+			const inventoryFields = {};
+			if (name) inventoryFields.name = name;
+			if (price) inventoryFields.price = price;
+			if (quantity) inventoryFields.quantity = quantity;
 
-		//Build Inventory Object
-		const inventoryFields = {};
-		if (name) inventoryFields.name = name;
-		if (price) inventoryFields.price = price;
-		if (quantity) inventoryFields.quantity = quantity;
-
-		try {
-			let inventory = await Inventory.findById(id);
-			//Check if inventory exists
-			if (!inventory) {
-				return res.status(404).json({ msg: 'Inventory not found' });
-			}
-
-			//Update the inventory
-			inventory = await Inventory.findByIdAndUpdate(
+			return Inventory.findByIdAndUpdate(
 				id,
 				{ $set: inventoryFields },
 				{ new: true }
-			);
-			res.json(inventory);
-		} catch (err) {
-			this.logger.log(err.message);
-			return res.status(500).json({ msg: 'Server Error' });
-		}
+			)
+				.then(res => {
+					if (!res) {
+						this.logger.log('Inventory Not Found');
+						return reject(new Errors.NotFoundError('Inventory Not Found'));
+					}
+					this.logger.log(res);
+					return resolve(res);
+				})
+				.catch(err => {
+					this.logger.log(err.message);
+					return reject(new Errors.BadRequestError(err.message));
+				});
+		});
 	};
 
 	getInventories = async res => {
-		try {
-			const inventories = await Inventory.find().sort({
-				date: -1,
-			});
-			res.json(inventories);
-		} catch (err) {
-			this.logger.log(err.message);
-			res.status(500).json({ msg: 'Server Error' });
-		}
+		return new Promise((resolve, reject) => {
+			return Inventory.find()
+				.sort({
+					date: -1,
+				})
+				.then(res => {
+					this.logger.log('Inventory fetched');
+					return resolve(res);
+				})
+				.catch(err => {
+					this.logger.error('error occured', err);
+					return reject(err);
+				});
+		});
 	};
 
 	deleteInventory = async (res, params) => {
-		const { id } = params;
-		try {
-			let inventory = await Inventory.findById(id);
-			//Check if inventory exists
-			if (!inventory) {
-				return res.status(404).json({ msg: 'Inventory not found' });
-			}
-
-			//Delete the inventory
-			await Inventory.findByIdAndRemove(id);
-			res.json({ msg: 'Inventory Removed ' });
-		} catch (err) {
-			this.logger.log(err.message);
-			res.status(500).json({ msg: 'Server Error' });
-		}
+		return new Promise((resolve, reject) => {
+			const { id } = params;
+			return Inventory.findByIdAndRemove(id)
+				.then(res => {
+					if (!res) {
+						this.logger.log('Inventory Not Found');
+						return reject(new Errors.NotFoundError('Inventory Not Found'));
+					}
+					this.logger.log(res);
+					return resolve({ msg: 'Inventory Removed ' });
+				})
+				.catch(err => {
+					this.logger.error('error occured', err);
+					return reject(err);
+				});
+		});
 	};
 }
 
