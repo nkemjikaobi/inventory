@@ -8,8 +8,7 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.use('/api', routes.userRoute);
-app.use('/api', routes.inventoryRoute);
+app.use('/api', routes.userRoute, routes.inventoryRoute);
 app.use('/', routes.statusRoute);
 
 module.exports = app;

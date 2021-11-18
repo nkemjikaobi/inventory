@@ -55,6 +55,18 @@ class InventoryService {
 			return res.status(500).json({ msg: 'Server Error' });
 		}
 	};
+
+	getInventories = async (res) => {
+		try {
+			const inventories = await Inventory.find().sort({
+				date: -1,
+			});
+			res.json(inventories);
+		} catch (err) {
+			console.error(err.message);
+			res.status(500).send('Server Error');
+		}
+	}
 }
 
 module.exports = InventoryService;

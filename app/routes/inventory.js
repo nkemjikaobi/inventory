@@ -16,5 +16,11 @@ router.put(
 	adminMiddleware,
 	inventoryController.editInventory
 );
+router.get(
+	'/inventory',
+	requireSignin,
+	adminMiddleware,
+	inventoryController.getInventories
+);
 
 module.exports = router;
