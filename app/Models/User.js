@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const mongoose = require('mongoose');
-// user schema
+// User Schema
 const UserSchema = new mongoose.Schema(
 	{
 		email: {
