@@ -54,6 +54,21 @@ class InventoryController {
 					.send(new errors.BadRequestError(err.message.toString()));
 			});
 	};
+	deleteInventory = (req, res) => {
+		return this.inventoryService
+			.deleteInventory(res, req.params)
+			.then(resp => {
+				this.logger.log('Response deleteInventory: ', resp);
+				return res.status(httpStatus.OK).send({ data: resp });
+			})
+			.catch(err => {
+				this.logger.error(err);
+				this.logger.error('error from Inventory Controller: ', err);
+				return res
+					.status(httpStatus.BAD_REQUEST)
+					.send(new errors.BadRequestError(err.message.toString()));
+			});
+	};
 }
 
 module.exports = InventoryController;

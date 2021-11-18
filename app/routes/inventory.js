@@ -22,5 +22,11 @@ router.get(
 	adminMiddleware,
 	inventoryController.getInventories
 );
+router.delete(
+	'/inventory/:id',
+	requireSignin,
+	adminMiddleware,
+	inventoryController.deleteInventory
+);
 
 module.exports = router;

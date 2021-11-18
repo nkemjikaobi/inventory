@@ -27,8 +27,6 @@ class InventoryService {
 		const { name, price, quantity } = payload;
 		const { id } = params;
 
-		console.log(params);
-
 		//Build Inventory Object
 		const inventoryFields = {};
 		if (name) inventoryFields.name = name;
@@ -51,22 +49,40 @@ class InventoryService {
 			console.log(inventory);
 			res.json(inventory);
 		} catch (err) {
-			console.error(err.message);
+			this.logger.log(err.message);
 			return res.status(500).json({ msg: 'Server Error' });
 		}
 	};
 
-	getInventories = async (res) => {
+	getInventories = async res => {
 		try {
 			const inventories = await Inventory.find().sort({
 				date: -1,
 			});
 			res.json(inventories);
 		} catch (err) {
-			console.error(err.message);
+			this.logger.log(err.message);
 			res.status(500).send('Server Error');
 		}
-	}
+	};
+
+	deleteInventory = async (res, params) => {
+		const { id } = params;
+		try {
+			let inventory = await Inventory.findById(id);
+			//Check if inventory exists
+			if (!inventory) {
+				return res.status(404).json({ msg: 'Inventory not found' });
+			}
+
+			//Delete the inventory
+			await Inventory.findByIdAndRemove(id);
+			res.json({ msg: 'Inventory Removed ' });
+		} catch (err) {
+			this.logger.log(err.message);
+			res.status(500).send('Server Error');
+		}
+	};
 }
 
 module.exports = InventoryService;
