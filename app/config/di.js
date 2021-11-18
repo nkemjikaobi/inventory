@@ -5,6 +5,9 @@ const UserController = require('../controllers/user');
 const InventoryService = require('../services/inventory');
 const InventoryController = require('../controllers/inventory');
 const StatusController = require('../controllers/status');
+const CartController = require('../controllers/cart');
+const CartService = require('../services/cart');
+
 
 serviceLocator.register('logger', () => {
 	return turboLogger;
@@ -34,6 +37,19 @@ serviceLocator.register('inventoryController', () => {
 	let logger = serviceLocator.get('logger');
 
 	return new InventoryController(inventoryService, logger);
+});
+
+serviceLocator.register('cartService', () => {
+	let logger = serviceLocator.get('logger');
+
+	return new CartService(logger);
+});
+
+serviceLocator.register('cartController', () => {
+	let cartService = serviceLocator.get('cartService');
+	let logger = serviceLocator.get('logger');
+
+	return new CartController(cartService, logger);
 });
 
 serviceLocator.register('statusController', () => {

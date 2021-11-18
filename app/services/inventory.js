@@ -46,7 +46,6 @@ class InventoryService {
 				{ $set: inventoryFields },
 				{ new: true }
 			);
-			console.log(inventory);
 			res.json(inventory);
 		} catch (err) {
 			this.logger.log(err.message);
@@ -62,7 +61,7 @@ class InventoryService {
 			res.json(inventories);
 		} catch (err) {
 			this.logger.log(err.message);
-			res.status(500).send('Server Error');
+			res.status(500).json({ msg: 'Server Error' });
 		}
 	};
 
@@ -80,7 +79,7 @@ class InventoryService {
 			res.json({ msg: 'Inventory Removed ' });
 		} catch (err) {
 			this.logger.log(err.message);
-			res.status(500).send('Server Error');
+			res.status(500).json({ msg: 'Server Error' });
 		}
 	};
 }
