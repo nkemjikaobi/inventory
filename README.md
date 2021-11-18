@@ -16,7 +16,7 @@ $ The project will be running on port 2021
 $ git clone git@github.com:nkemjikaobi/inventory.git
 $ cd inventory
 $ yarn install
-$ yarn start
+$ yarn dev:start
 $ The project will be running on port 2021
 
 
