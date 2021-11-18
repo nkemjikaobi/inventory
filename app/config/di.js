@@ -2,6 +2,8 @@ const serviceLocator = require('./service-locator');
 const turboLogger = require('turbo-logger').createStream({});
 const UserService = require('../services/user');
 const UserController = require('../controllers/user');
+const InventoryService = require('../services/inventory');
+const InventoryController = require('../controllers/inventory');
 const StatusController = require('../controllers/status');
 
 serviceLocator.register('logger', () => {
@@ -19,6 +21,19 @@ serviceLocator.register('userController', () => {
 	let logger = serviceLocator.get('logger');
 
 	return new UserController(userService, logger);
+});
+
+serviceLocator.register('inventoryService', () => {
+	let logger = serviceLocator.get('logger');
+
+	return new InventoryService(logger);
+});
+
+serviceLocator.register('inventoryController', () => {
+	let inventoryService = serviceLocator.get('inventoryService');
+	let logger = serviceLocator.get('logger');
+
+	return new InventoryController(inventoryService, logger);
 });
 
 serviceLocator.register('statusController', () => {

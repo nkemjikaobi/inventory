@@ -1,5 +1,4 @@
 /** @format */
-'use strict';
 
 const config = require('../config/config');
 const User = require('../models/User');
@@ -20,6 +19,7 @@ class UserService {
 					// generate a token and send
 					const token = jwt.sign(
 						{
+							_id: res._id,
 							password: res.username,
                             username: res.password,
 							email: res.email,
