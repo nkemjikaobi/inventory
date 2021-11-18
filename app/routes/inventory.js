@@ -10,5 +10,11 @@ router.post(
 	adminMiddleware,
 	inventoryController.createInventory
 );
+router.put(
+	'/inventory/edit/:id',
+	requireSignin,
+	adminMiddleware,
+	inventoryController.editInventory
+);
 
 module.exports = router;
