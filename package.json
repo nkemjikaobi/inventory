@@ -2,12 +2,12 @@
 	"name": "inventory",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
+	"main": "app/index.js",
 	"scripts": {
 		"start": "node app/index.js",
 		"dev:start": "node app/index.js",
 		"docker:bash": "docker-compose up",
-		"dev": "nodemon app --exec \"node -r dotenv/config\"",
+		"dev": "app --exec \"node -r dotenv/config\"",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
