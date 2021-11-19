@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const app = require('./app/app');
-const config = require('./app/config/config');
+const app = require('./app');
+const config = require('./config/config');
 const mongoHost = config.MONGODB_URI;
 const logger = require('turbo-logger').createStream({});
 
