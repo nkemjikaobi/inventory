@@ -1,7 +1,7 @@
 const expressJwt = require('express-jwt');
 const config = require('../config/config');
 const User = require('../Models/User');
-const Errors = require('../utils/errors');
+const httpStatus = require('http-status');
 
 exports.requireSignin = expressJwt({
 	secret: config.JWT_SECRET,
@@ -11,11 +11,13 @@ exports.requireSignin = expressJwt({
 exports.adminMiddleware = (req, res, next) => {
 	User.findById({ _id: req.user._id }).exec((err, user) => {
 		if (err || !user) {
-			return new Errors.NotFoundError('User Not Found');
+			return res.status(httpStatus.OK).send({ error: 'User Not Found' });
 		}
 
 		if (user.isAdmin !== true) {
-			return new Errors.UnauthorizedError('Admin Resource. Access Denied!');
+			return res
+				.status(httpStatus.OK)
+				.send({ error: 'Admin Resource. Access Denied!' });
 		}
 
 		req.profile = user;

@@ -15,8 +15,8 @@ class UserController {
 				return res.status(httpStatus.OK).send({ data: resp });
 			})
 			.catch(err => {
-				this.logger.error(err);
-				this.logger.error('error from User Controller: ', err);
+				this.logger.log(err);
+				this.logger.log('error from User Controller: ', err);
 				if (err && err.code === 11000) {
 					return res
 						.status(httpStatus.FORBIDDEN)
