@@ -1,6 +1,6 @@
 const expressJwt = require('express-jwt');
 const config = require('../config/config');
-const User = require('../models/user');
+const User = require('../models/User');
 const Errors = require('../utils/errors');
 
 exports.requireSignin = expressJwt({
