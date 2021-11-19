@@ -2,7 +2,7 @@
 	"name": "inventory",
 	"version": "1.0.0",
 	"description": "",
-	"main": "app/index.js",
+	"main": "index.js",
 	"scripts": {
 		"start": "node app/index.js",
 		"dev:start": "node app/index.js",
