@@ -2,6 +2,8 @@
 
 This project has been setup for anyone who wants a good base node js app to start with
 
+- Live Link - [https://dericks-inventory.herokuapp.com/](https://dericks-inventory.herokuapp.com/)
+
 ## Installation
 #To start up the docker containers, run this command in the project root:
 ```

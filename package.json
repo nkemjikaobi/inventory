@@ -7,7 +7,7 @@
 		"start": "node app/index.js",
 		"dev:start": "node app/index.js",
 		"docker:bash": "docker-compose up",
-		"dev": "app --exec \"node -r dotenv/config\"",
+		"dev": "node app/index.js",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
