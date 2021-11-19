@@ -8,7 +8,7 @@ const startServer = async function () {
 	try {
 		await Promise.all([
 			mongoose.connect(config.MONGODB_URI),
-			app.listen(config.PORT),
+			app.listen(process.env.PORT || config.PORT),
 		]);
 		logger.log(
 			`Server has started on port: ${config.PORT}, connected to mongo at ${mongoHost}`
