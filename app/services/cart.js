@@ -1,6 +1,6 @@
 /** @format */
 
-const Cart = require('../models/Cart');
+//const Cart = require('../models/Cart');
 const Inventory = require('../models/Inventory');
 const Errors = require('../utils/errors');
 
