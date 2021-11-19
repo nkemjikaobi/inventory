@@ -3,6 +3,7 @@
 This project has been setup for anyone who wants a good base node js app to start with
 
 - Live Link - [https://dericks-inventory.herokuapp.com/](https://dericks-inventory.herokuapp.com/)
+- Postman Documentation -[https://documenter.getpostman.com/view/11678578/UVJWoydF#e7884dff-43e4-4277-8d49-0122c5e8bba6](https://documenter.getpostman.com/view/11678578/UVJWoydF#e7884dff-43e4-4277-8d49-0122c5e8bba6)
 
 ## Installation
 #To start up the docker containers, run this command in the project root:
