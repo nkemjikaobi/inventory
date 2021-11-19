@@ -1,7 +1,6 @@
 /** @format */
-
 const config = require('../config/config');
-const User = require('../models/User');
+//const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const Errors = require('../utils/errors');
 
