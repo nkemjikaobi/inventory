@@ -1,4 +1,4 @@
-const routes = require('./routes');
+const routes = require('../app/routes/index');
 const morgan = require('morgan');
 
 const express = require('express');
